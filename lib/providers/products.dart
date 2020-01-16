@@ -38,15 +38,30 @@ class Products with ChangeNotifier {
     ),
   ];
 
+  var _showFavoritesOnly = false;
+
   List<Product> get items {
     // Android Studio shows in 'Dart Analysis':
     // error: This requires the 'spread-collections' experiment to be enabled.
     // (experiment_not_enabled at [flutter_complete_guide] lib/providers/products.dart:42)
     // However this compiles...
+    if (_showFavoritesOnly) {
+      return _items.where((productItem) => productItem.isFavorite).toList();
+    }
     return [..._items];
   }
 
   Product findById(String id) {
     return _items.firstWhere((product) => product.id == id);
+  }
+
+  void showFavoritesOnly() {
+    _showFavoritesOnly = true;
+    notifyListeners();
+  }
+
+  void showAll() {
+    _showFavoritesOnly = false;
+    notifyListeners();
   }
 }
