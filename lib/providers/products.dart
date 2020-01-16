@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/product.dart';
+import './product.dart';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
@@ -39,6 +39,10 @@ class Products with ChangeNotifier {
   ];
 
   List<Product> get items {
+    // Android Studio shows in 'Dart Analysis':
+    // error: This requires the 'spread-collections' experiment to be enabled.
+    // (experiment_not_enabled at [flutter_complete_guide] lib/providers/products.dart:42)
+    // However this compiles...
     return [..._items];
   }
 
